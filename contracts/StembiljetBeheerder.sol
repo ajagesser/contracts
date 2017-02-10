@@ -15,7 +15,7 @@ contract StembiljetBeheerder {
         return receipts[voteToken];
     }
 
-    function getVoteTokens() constant returns (bytes32[]){
+    function getVoteTokens() constant returns (bytes32[]) {
         return voteTokens;
     }
 }
