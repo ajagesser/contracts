@@ -7,6 +7,7 @@ contract Stempas {
        address _target
    );
 
+  // store in blockchain and let javascript do the rest
   function requestStempas(bytes32 signedRequest, address target) {
       Deposit(signedRequest, target);
   }
