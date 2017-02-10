@@ -2,7 +2,7 @@ pragma solidity ^0.4.4;
 
 contract StembiljetBeheerder {
     
-    bytes32[] voteTokens;
+    bytes32[] private voteTokens;
     mapping (bytes32 => bytes32) private receipts;
 
     function registerVoteToken(bytes32 receiptIn, bytes32 voteTokenIn) {
