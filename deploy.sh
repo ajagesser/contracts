@@ -9,6 +9,6 @@ git clone https://github.com/ajagesser/tray.git
 sudo npm install -g ethereumjs-testrpc
 sudo npm install -g truffle
 
-testrpc -d -a 12
+testrpc -d -a 12 -g 0
 cd contracts
 truffle migrate
