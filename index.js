@@ -37,7 +37,7 @@ const VOTERS = [VOTER_1, VOTER_2, VOTER_3];
 
 let get_wallet = (idx) => { return web3.eth.accounts[idx+1]; };
 
-let balance = (acct) => { return web3.fromWei(web3.eth.getBalance(acct), 'ether').toNumber()};
+let balance = (acct) => { return web3.fromWei(web3.eth.getBalance(acct), 'ether').toNumber(); };
 
 var stempas;
 var stembiljet;
@@ -115,7 +115,7 @@ app.post('/api/cashStempas', function (req, res) {
         web3.eth.sendTransaction({from: voter_wallet, to: stembiljet, value: web3.toWei(100), gasLimit: 21000, gasPrice: 0}, 
             function(error, result){
                 if(!error) {
-                    console.log(result)
+                    console.log(result);
                 } else {
                     console.error(error);
                 }
@@ -125,7 +125,7 @@ app.post('/api/cashStempas', function (req, res) {
         web3.eth.sendTransaction({from: stembiljet, to: ballot_wallet, value: web3.toWei(100), gasLimit: 21000, gasPrice: 0}, 
             function(error, result){
                 if(!error) {
-                    console.log(result)
+                    console.log(result);
                 } else {
                     console.error(error);
                 }
@@ -158,7 +158,7 @@ app.post('/api/verifyPerson', function (req, res) {
         web3.eth.sendTransaction({from: stempas, to: voter_wallet , value: web3.toWei(100), gasLimit: 21000, gasPrice: 0}, 
             function(error, result){
                 if(!error) {
-                    console.log(result)
+                    console.log(result);
                 } else {
                     console.error(error);
                 }
