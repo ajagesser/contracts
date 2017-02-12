@@ -8,8 +8,6 @@ let web3 = new Web3();
 
 let app = express();
 
-let wrapper = require("./wrappers/wrapper.js");
-
 /* Begin convenience constants block */
 const VOTER_1 = 1; // box for your stempas
 const VOTER_2 = 2;
