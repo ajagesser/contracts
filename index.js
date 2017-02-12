@@ -2,11 +2,13 @@ let express = require('express');
 let bodyParser = require('body-parser');
 let cors = require('cors');
 let fs  = require('fs');
-let Web3 = require("web3");
 
+let Web3 = require("web3");
 let web3 = new Web3();
 
 let app = express();
+
+let wrapper = require("./wrappers/wrapper.js");
 
 /* Begin convenience constants block */
 const VOTER_1 = 1; // box for your stempas
@@ -67,6 +69,18 @@ var stembiljet;
     }
 
     //check funds:
+
+    // setup listener for deposits (stempast)
+
+    // let contractAddress = "0x80507828ab1323056cbadf3fa297048be61b7499";
+    // var filter = web3.eth.filter({fromBlock:0, toBlock: 'latest', address: contractAddress,
+    //                           'topics':[web3.sha3('Deposit(bytes32,address)')]});
+    
+    // filter.watch(function(error, result) {
+    // console.log("filter - attached");
+    // console.log(error);
+    // console.log(result);
+// });
 })();
 
 /* End convenience constants block */
@@ -98,10 +112,24 @@ app.post('/api/cashStempas', function (req, res) {
 
         // TODO integrate with contract
         //voter_wallet = get_wallet(req.body.id); // TODO should actually be certified by client in prod.
-        web3.eth.sendTransaction({from: voter_wallet, to: stembiljet, value: web3.toWei(100), gasLimit: 21000, gasPrice: 0});
+        web3.eth.sendTransaction({from: voter_wallet, to: stembiljet, value: web3.toWei(100), gasLimit: 21000, gasPrice: 0}, 
+            function(error, result){
+                if(!error) {
+                    console.log(result)
+                } else {
+                    console.error(error);
+                }
+            });
         // TODO: Validate the validity of the vote token.
 
-        web3.eth.sendTransaction({from: stembiljet, to: ballot_wallet, value: web3.toWei(100), gasLimit: 21000, gasPrice: 0});
+        web3.eth.sendTransaction({from: stembiljet, to: ballot_wallet, value: web3.toWei(100), gasLimit: 21000, gasPrice: 0}, 
+            function(error, result){
+                if(!error) {
+                    console.log(result)
+                } else {
+                    console.error(error);
+                }
+            });
         // ^- this should be the blind signed transaction instead. It should
         // only be _signed_ server side, and then completed and uploaded to the
         // blockchain by the client/voter 
@@ -127,7 +155,14 @@ app.post('/api/verifyPerson', function (req, res) {
     var wallet_id = parseInt(req.body.id);
     if (VOTERS.includes(wallet_id)){
         voter_wallet = get_wallet(wallet_id); // TODO should actually be certified by client in prod.
-        web3.eth.sendTransaction({from: stempas, to: voter_wallet , value: web3.toWei(100), gasLimit: 21000, gasPrice: 0});
+        web3.eth.sendTransaction({from: stempas, to: voter_wallet , value: web3.toWei(100), gasLimit: 21000, gasPrice: 0}, 
+            function(error, result){
+                if(!error) {
+                    console.log(result)
+                } else {
+                    console.error(error);
+                }
+            });
 	      res.send({id: wallet_id});
     } else {
         console.error("inaccessable");
